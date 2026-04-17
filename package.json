@@ -1,13 +1,14 @@
 {
   "name": "microservico_pagamento",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "node src/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "httpsgithub.comPablo-Damascena-MaiaMicroservico_Pagamento.git"
+    "url": "https://github.com/Pablo-Damascena-Maia/Microservico_Pagamento.git"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.22.0",
+    "axios": "^1.15.0",
     "fastify": "^5.8.5"
   },
   "devDependencies": {
