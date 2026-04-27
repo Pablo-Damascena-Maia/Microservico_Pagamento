@@ -5,5 +5,5 @@ const api = axios.create({
 })
 
 export const getUserById = async (userId) => {
-  return await api.get(`/usuarios/${userId}`)
+  return await api.get(`/interno/usuarios/${userId}`)
 }

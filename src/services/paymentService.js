@@ -33,6 +33,7 @@ export const createPayment = async (data) => {
       throw new Error('Usuário não encontrado')
     }
   } catch (error) {
+    console.error("Erro", error.message);
     throw new Error('Erro ao buscar usuário')
   }
 
