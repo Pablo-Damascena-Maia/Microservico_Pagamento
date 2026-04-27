@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { updateOrderStatus, getOrderById } from './orderClient.js'
+import { getUserById } from './userClient.js'
 
 const prisma = new PrismaClient()
 
@@ -27,16 +27,16 @@ export const getByStatus = async (status) => {
 
 export const createPayment = async (data) => {
   try {
-    const orderResponse = await getOrderById(data.orderId)
+    const userResponse = await getUserById(data.userId)
 
-    if (!orderResponse.data) {
-      throw new Error('Pedido não encontrado')
+    if (!userResponse.data) {
+      throw new Error('Usuário não encontrado')
     }
   } catch (error) {
-    throw new Error('Erro ao buscar pedido')
+    throw new Error('Erro ao buscar usuário')
   }
 
-  const payment = await prisma.payment.create({
+  return await prisma.payment.create({
     data: {
       orderId: data.orderId,
       userId: data.userId,
@@ -45,18 +45,10 @@ export const createPayment = async (data) => {
       paymentMethod: data.paymentMethod
     }
   })
-
-  try {
-    await updateOrderStatus(data.orderId, 'PENDING')
-  } catch (error) {
-    console.log('Erro ao comunicar com pedidos')
-  }
-
-  return payment
 }
 
 export const updatePayment = async (id, data) => {
-  const payment = await prisma.payment.update({
+  return await prisma.payment.update({
     where: { id: Number(id) },
     data: {
       orderId: data.orderId,
@@ -66,14 +58,4 @@ export const updatePayment = async (id, data) => {
       paymentMethod: data.paymentMethod
     }
   })
-
-  if (data.status) {
-    try {
-      await updateOrderStatus(payment.orderId, data.status)
-    } catch (error) {
-      console.log('Erro ao comunicar com pedidos')
-    }
-  }
-
-  return payment
 }

@@ -5,9 +5,9 @@ const api = axios.create({
 })
 
 export const updateOrderStatus = async (orderId, status) => {
-  return await api.patch(`/orders/${orderId}/status`, { status })
+  return await api.patch(`/pedidos/${orderId}/status`, { status })
 }
 
 export const getOrderById = async (orderId) => {
-  return await api.get(`/orders/${orderId}`)
+  return await api.get(`/pedidos/${orderId}`)
 }
